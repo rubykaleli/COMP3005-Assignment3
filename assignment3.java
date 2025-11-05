@@ -1,80 +1,10 @@
-# Assignment 3 – Q1
-### Database Interaction with PostgreSQL and Application Programming
-
-**Course:** COMP 3005 – Database Management Systems  
-**Name:** Ruby Kaleli
-
----
-## Demo Video
-▶️ [Watch my video on YouTube](https://youtu.be/PONek4bWjcc) 
-(https://youtu.be/PONek4bWjcc)
-
-## Description
-This application connects to a PostgreSQL database (`assignment3`) and performs CRUD operations  
-(Create, Read, Update, Delete) on a table called **students**.
-
-It demonstrates the following functions:
-
-1. `getAllStudents()` – Retrieves and displays all records from the students table.
-2. `addStudent(first_name, last_name, email, enrollment_date)` – Inserts a new student into the student table.
-3. `updateStudentEmail(student_id, new_email)` – Updates the email for a specific student.
-4. `deleteStudent(student_id)` – Deletes the record of the student with the specified student_id.
-
----
-
-## DATABASE SETUP:
-### Step 1:
-Install PostgreSQL and open pgAdmin
-
-### Step 2:
-Create a new database called assignment3.
-- Right-click on `Databases` → `Create` → `Database…`
-- Enter `assignment3` in the Database field.
-
-### Step 3:
-Create a table called `students`.
-- Open a Query tool and run:
-
-```sql
-DROP TABLE IF EXISTS students;
-
-CREATE TABLE students (
-student_id  INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-first_name  TEXT NOT NULL,
-last_name   TEXT NOT NULL,
-email   TEXT NOT NULL UNIQUE,
-enrollment_date  DATE
-);
-
-INSERT INTO students (first_name, last_name, email, enrollment_date) VALUES
-('John', 'Doe',  'john.doe@example.com',  '2023-09-01'),
-('Jane', 'Smith','jane.smith@example.com','2023-09-01'),
-('Jim',  'Beam', 'jim.beam@example.com',  '2023-09-02');
-```
-
-## Java CRUD Application using JDBC:
-### Step 1:
-Set up a new Java project in IntelliJ IDEA using Maven.
-
-### Step 2:
-Add the PostgreSQL JDBC driver to your pom.xml:
-```xml
-        <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <version>42.7.8</version>
-        </dependency>
-```
-### Step 3:
-Java Code (assignment3.java)
-```java
 import java.sql.*;
 import java.util.Scanner;
 
 public class assignment3 {
     String url = "jdbc:postgresql://localhost:5432/assignment3";
-    String user = "YOUR_USERNAME";
-    String password = "YOUR_PASSWORD";
+    String user = "postgres";
+    String password = "2002zeynep";
 
     // 1) READ. Retrieves and displays all records from the students table.
     public void getAllStudents() {
@@ -201,12 +131,7 @@ public class assignment3 {
             System.out.println("Invalid id. Skipping.");
             return null;
         }
+        }
     }
-}
-```
 
-### Step 4:
-Replace YOUR_USERNAME and YOUR_PASSWORD with your PostgreSQL username and password.
 
-### Step 5:
-Run the Java program. If all goes well, it will get all the students, add a student, update the student's email, and then delete the student.
